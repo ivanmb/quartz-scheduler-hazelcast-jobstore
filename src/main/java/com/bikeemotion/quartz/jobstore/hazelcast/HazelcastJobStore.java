@@ -1,10 +1,10 @@
 package com.bikeemotion.quartz.jobstore.hazelcast;
 
+import com.hazelcast.collection.ISet;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.IMap;
-import com.hazelcast.core.ISet;
-import com.hazelcast.core.MultiMap;
+import com.hazelcast.map.IMap;
+import com.hazelcast.multimap.MultiMap;
 import com.hazelcast.query.Predicate;
 import org.quartz.Calendar;
 import org.quartz.DateBuilder;
@@ -112,8 +112,6 @@ public class HazelcastJobStore implements JobStore, Serializable {
     pausedTriggerGroups = getSet(HC_JOB_STORE_PAUSED_TRIGGER_GROUPS);
     pausedJobGroups = getSet(HC_JOB_STORE_PAUSED_JOB_GROUPS);
     calendarsByName = getMap(HC_JOB_CALENDAR_MAP);
-
-    triggersByKey.addIndex("nextFireTime", true);
 
     LOG.debug("Hazelcast Job Store Initialized.");
   }
@@ -1223,15 +1221,15 @@ public class HazelcastJobStore implements JobStore, Serializable {
     this.triggerReleaseThreshold = triggerReleaseThreshold;
   }
 
-  protected IMap getMap(String name) {
+  protected <K, V> IMap<K, V> getMap(String name) {
     return hazelcastClient.getMap(name);
   }
 
-  protected MultiMap getMultiMap(String name) {
+  protected <K, V> MultiMap<K, V> getMultiMap(String name) {
     return hazelcastClient.getMultiMap(name);
   }
 
-  protected ISet getSet(String name) {
+  protected <E> ISet<E> getSet(String name) {
     return hazelcastClient.getSet(name);
   }
 
@@ -1240,7 +1238,7 @@ public class HazelcastJobStore implements JobStore, Serializable {
 /**
  * Filter triggers with a given job key
  */
-class TriggerByJobPredicate implements Predicate<JobKey, TriggerWrapper> {
+class TriggerByJobPredicate implements Predicate<TriggerKey, TriggerWrapper> {
 
   private JobKey key;
 
@@ -1250,7 +1248,7 @@ class TriggerByJobPredicate implements Predicate<JobKey, TriggerWrapper> {
   }
 
   @Override
-  public boolean apply(Entry<JobKey, TriggerWrapper> entry) {
+  public boolean apply(Entry<TriggerKey, TriggerWrapper> entry) {
 
     return key != null && entry != null && key.equals(entry.getValue().jobKey);
   }

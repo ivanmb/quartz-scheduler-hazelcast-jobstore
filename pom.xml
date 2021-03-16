@@ -7,22 +7,21 @@
       <version>1.0.1</version>
     </parent>
 
-    <groupId>com.bikeemotion</groupId>
     <artifactId>quartz-hazelcast-jobstore</artifactId>
-    <version>1.0.5-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
   
     <name>Quartz Hazelcast JobStore</name>
 
     <issueManagement>
-      <url>https://github.com/FlavioF/quartz-scheduler-hazelcast-jobstore/issues</url>
+      <url>https://github.com/ivanmb/quartz-scheduler-hazelcast-jobstore/issues</url>
       <system>GitHub Issues</system>
     </issueManagement>
 
     <scm>
-      <url>https://github.com/FlavioF/quartz-scheduler-hazelcast-jobstore/</url>
-      <connection>scm:git:git://github.com/FlavioF/quartz-scheduler-hazelcast-jobstore.git</connection>
-      <developerConnection>scm:git:git://github.com/FlavioF/quartz-scheduler-hazelcast-jobstore.git</developerConnection>
+      <url>https://github.com/ivanmb/quartz-scheduler-hazelcast-jobstore/</url>
+      <connection>scm:git:git://github.com/ivanmb/quartz-scheduler-hazelcast-jobstore.git</connection>
+      <developerConnection>scm:git:git://github.com/ivanmb/quartz-scheduler-hazelcast-jobstore.git</developerConnection>
     </scm>
 
     <properties>
@@ -31,7 +30,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     
-        <hazelcast.version>3.2.1</hazelcast.version>
+        <hazelcast.version>4.1.2</hazelcast.version>
         <quartz.version>2.2.3</quartz.version>
         <guava.version>17.0</guava.version>
         <joda.time.version>2.4</joda.time.version>
@@ -51,11 +50,6 @@
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz-jobs</artifactId>
             <version>${quartz.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.hazelcast</groupId>
-            <artifactId>hazelcast-client</artifactId>
-            <version>${hazelcast.version}</version>
         </dependency>
         <dependency>
             <groupId>com.hazelcast</groupId>
